@@ -16,11 +16,11 @@
             --gold-primary: #FFD700;
             --gold-light: #FFF8DC;
             --gold-dark: #B8860B;
-            --ice-blue: #F0F8FF;
+            /* NUOVO: L'azzurrino esatto estratto dal tuo logo */
+            --ice-blue-core: #A9D0F5; 
             --cloud-white: #FFFFFF;
             --text-main: #1A1A1A; 
             --text-muted: #666666;
-            --bg-body: #F9FBFF; 
         }
 
         body {
@@ -33,8 +33,9 @@
 
         h1, h2, h3 { font-family: 'Playfair Display', serif; }
 
+        /* AGGIORNATO: Il titolo ora usa l'azzurrino del logo con bordo oro */
         .text-logo-style {
-            color: var(--cloud-white);
+            color: var(--ice-blue-core);
             text-shadow: 
                 2px 2px 0 var(--gold-primary), 
                -1px 1px 0 var(--gold-primary),
@@ -42,7 +43,6 @@
                 1px -1px 0 var(--gold-primary),
                 0px 8px 15px rgba(255, 215, 0, 0.4);
         }
-
         .text-gold-elegant {
             background: linear-gradient(to right, var(--gold-dark), var(--gold-primary), var(--gold-dark));
             -webkit-background-clip: text;
@@ -71,11 +71,12 @@
             100% { transform: translateX(0) translateY(0) scale(1); }
         }
 
+        /* AGGIORNATO: Nuvole meno sfocate per essere più visibili */
         .cloud-element {
             position: absolute;
             border-radius: 50%;
-            filter: blur(60px);
-            z-index: -10;
+            filter: blur(30px); /* Ridotto da 60 a 30 per farle risaltare */
+            z-index: 0;
             pointer-events: none;
         }
 
@@ -98,11 +99,11 @@
 </head>
 <body class="min-h-screen flex flex-col items-center justify-start pb-10 transition-opacity duration-700 opacity-0" id="app-body">
 
-    <div class="fixed top-0 left-0 w-full h-full overflow-hidden -z-20 pointer-events-none bg-gradient-to-b from-[#E6F0FA] to-[#FFFFFF]">
-        <div class="cloud-element w-[80vw] h-[60vh] bg-white top-[-10%] left-[-20%] opacity-90 animate-[drift_25s_ease-in-out_infinite]"></div>
-        <div class="cloud-element w-[70vw] h-[50vh] bg-[#F0F8FF] top-[30%] right-[-10%] opacity-80 animate-[drift_30s_ease-in-out_infinite_reverse]"></div>
-        <div class="cloud-element w-[90vw] h-[70vh] bg-white bottom-[-20%] left-[10%] opacity-90 animate-[drift_20s_ease-in-out_infinite]"></div>
-        <div class="cloud-element w-[50vw] h-[50vh] bg-[#FFF8DC] top-[10%] right-[20%] opacity-40 animate-[drift_35s_ease-in-out_infinite]"></div>
+   <div class="fixed top-0 left-0 w-full h-full overflow-hidden -z-20 pointer-events-none bg-gradient-to-b from-[#A9D0F5] via-[#DCEAFC] to-[#FFFFFF]">
+        <div class="cloud-element w-[80vw] h-[60vh] bg-[#FFFFFF] top-[-10%] left-[-20%] opacity-95 animate-[drift_25s_ease-in-out_infinite]"></div>
+        <div class="cloud-element w-[70vw] h-[50vh] bg-[#F4F9FF] top-[30%] right-[-10%] opacity-100 animate-[drift_30s_ease-in-out_infinite_reverse]"></div>
+        <div class="cloud-element w-[90vw] h-[70vh] bg-[#FFFFFF] bottom-[-20%] left-[10%] opacity-95 animate-[drift_20s_ease-in-out_infinite]"></div>
+        <div class="cloud-element w-[50vw] h-[50vh] bg-[#FFF8DC] top-[10%] right-[20%] opacity-60 animate-[drift_35s_ease-in-out_infinite]"></div>
     </div>
 
     <header class="w-full text-center pt-12 pb-8 px-4">
