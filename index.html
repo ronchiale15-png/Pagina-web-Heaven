@@ -13,11 +13,14 @@
 
     <style>
         :root {
-            --gold-primary: #D4AF37;
-            --gold-light: #F3E5AB;
-            --gold-dark: #AA8C2C;
-            --bg-black: #050505;
-            --bg-card: #121212;
+            /* NUOVI COLORI BRILLANTI */
+            --gold-primary: #FFD700; /* Oro più brillante e metallico (come nell'aureola) */
+            --gold-light: #FFF8DC; /* Oro crema pallidissimo, quasi bianco */
+            --gold-dark: #B8860B; /* Oro scuro più marrone */
+            --ice-blue: #F0F8FF; /* Azzurro ghiaccio, simile al testo dell'immagine */
+            
+            --bg-black: #050505; /* Invariato */
+            --bg-card: #121212; /* Invariato */
         }
 
         body {
@@ -29,6 +32,21 @@
 
         h1, h2, h3 {
             font-family: 'Playfair Display', serif;
+        }
+
+        /* Testo Azzurro Ghiaccio */
+        .text-ice-blue {
+            color: var(--ice-blue);
+        }
+
+        /* Testo Azzurro Ghiaccio con bordo oro */
+        .text-ice-blue-bordered {
+            color: var(--ice-blue);
+            text-shadow: 
+                2px 2px 0 var(--gold-primary), 
+               -2px 2px 0 var(--gold-primary),
+               -2px -2px 0 var(--gold-primary),
+                2px -2px 0 var(--gold-primary);
         }
 
         /* Effetto Oro Testo */
@@ -85,6 +103,7 @@
             50% { transform: translateY(-10px); }
             100% { transform: translateY(0px); }
         }
+        
     </style>
 </head>
 <body class="min-h-screen flex flex-col items-center justify-start pb-10">
