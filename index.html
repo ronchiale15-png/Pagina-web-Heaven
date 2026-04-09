@@ -13,177 +13,161 @@
 
     <style>
         :root {
-            /* NUOVI COLORI BRILLANTI */
-            --gold-primary: #FFD700; /* Oro più brillante e metallico (come nell'aureola) */
-            --gold-light: #FFF8DC; /* Oro crema pallidissimo, quasi bianco */
-            --gold-dark: #B8860B; /* Oro scuro più marrone */
-            --ice-blue: #F0F8FF; /* Azzurro ghiaccio, simile al testo dell'immagine */
-            
-            --bg-black: #050505; /* Invariato */
-            --bg-card: #121212; /* Invariato */
+            --gold-primary: #FFD700;
+            --gold-light: #FFF8DC;
+            --gold-dark: #B8860B;
+            --ice-blue: #F0F8FF;
+            --cloud-white: #FFFFFF;
+            --text-main: #1A1A1A; 
+            --text-muted: #666666;
+            --bg-body: #F9FBFF; 
         }
 
         body {
-            background-color: var(--bg-black);
-            color: white;
+            background-color: var(--bg-body);
+            color: var(--text-main);
             font-family: 'Montserrat', sans-serif;
             -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
         }
 
-        h1, h2, h3 {
-            font-family: 'Playfair Display', serif;
-        }
+        h1, h2, h3 { font-family: 'Playfair Display', serif; }
 
-        /* Testo Azzurro Ghiaccio */
-        .text-ice-blue {
-            color: var(--ice-blue);
-        }
-
-        /* Testo Azzurro Ghiaccio con bordo oro */
-        .text-ice-blue-bordered {
-            color: var(--ice-blue);
+        .text-logo-style {
+            color: var(--cloud-white);
             text-shadow: 
                 2px 2px 0 var(--gold-primary), 
-               -2px 2px 0 var(--gold-primary),
-               -2px -2px 0 var(--gold-primary),
-                2px -2px 0 var(--gold-primary);
+               -1px 1px 0 var(--gold-primary),
+               -1px -1px 0 var(--gold-primary),
+                1px -1px 0 var(--gold-primary),
+                0px 8px 15px rgba(255, 215, 0, 0.4);
         }
 
-        /* Effetto Oro Testo */
-        .text-gold-gradient {
-            background: linear-gradient(to right, var(--gold-primary), var(--gold-light), var(--gold-primary));
+        .text-gold-elegant {
+            background: linear-gradient(to right, var(--gold-dark), var(--gold-primary), var(--gold-dark));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-size: 200% auto;
-            animation: shine 3s linear infinite;
+            animation: shine 4s linear infinite;
         }
 
-        /* Effetto Oro Bordi/Bottoni */
-        .border-gold {
-            border-color: var(--gold-primary);
-        }
-        
-        .bg-gold {
-            background: linear-gradient(45deg, var(--gold-dark), var(--gold-primary));
+        .border-gold-glow {
+            border: 1px solid var(--gold-primary);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.2), inset 0 0 10px rgba(255, 215, 0, 0.1);
+            animation: pulse-glow 3s infinite alternate;
         }
 
-        @keyframes shine {
-            to {
-                background-position: 200% center;
-            }
+        @keyframes shine { to { background-position: 200% center; } }
+
+        @keyframes pulse-glow {
+            0% { box-shadow: 0 0 10px rgba(255, 215, 0, 0.1), inset 0 0 5px rgba(255, 215, 0, 0.05); }
+            100% { box-shadow: 0 0 25px rgba(255, 215, 0, 0.4), inset 0 0 15px rgba(255, 215, 0, 0.2); }
         }
 
-        /* Nascondi scrollbar ma permetti scroll */
-        .no-scrollbar::-webkit-scrollbar {
-            display: none;
-        }
-        .no-scrollbar {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
+        @keyframes drift {
+            0% { transform: translateX(0) translateY(0) scale(1); }
+            33% { transform: translateX(3%) translateY(-3%) scale(1.05); }
+            66% { transform: translateX(-2%) translateY(2%) scale(0.95); }
+            100% { transform: translateX(0) translateY(0) scale(1); }
         }
 
-        /* Gallery Card Style */
+        .cloud-element {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            z-index: -10;
+            pointer-events: none;
+        }
+
+        .no-scrollbar::-webkit-scrollbar { display: none; }
+        .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
         .event-card {
             scroll-snap-align: center;
             flex-shrink: 0;
-            width: 85%; /* Lascia intravedere la prossima card */
+            width: 85%;
             margin-right: 1rem;
             border-radius: 1rem;
             overflow: hidden;
             position: relative;
-            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.15);
+            background: white;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
         }
-
-        /* Floating Animation */
-        .floating {
-            animation: float 6s ease-in-out infinite;
-        }
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
-        
     </style>
 </head>
-<body class="min-h-screen flex flex-col items-center justify-start pb-10">
+<body class="min-h-screen flex flex-col items-center justify-start pb-10 transition-opacity duration-700 opacity-0" id="app-body">
 
-    <div class="fixed top-0 left-0 w-full h-full overflow-hidden -z-10 pointer-events-none">
-        <div class="absolute top-[-10%] left-[-10%] w-[50%] h-[30%] rounded-full bg-[#D4AF37] opacity-10 blur-[80px]"></div>
-        <div class="absolute bottom-[-10%] right-[-10%] w-[60%] h-[40%] rounded-full bg-[#AA8C2C] opacity-5 blur-[100px]"></div>
+    <div class="fixed top-0 left-0 w-full h-full overflow-hidden -z-20 pointer-events-none bg-gradient-to-b from-[#E6F0FA] to-[#FFFFFF]">
+        <div class="cloud-element w-[80vw] h-[60vh] bg-white top-[-10%] left-[-20%] opacity-90 animate-[drift_25s_ease-in-out_infinite]"></div>
+        <div class="cloud-element w-[70vw] h-[50vh] bg-[#F0F8FF] top-[30%] right-[-10%] opacity-80 animate-[drift_30s_ease-in-out_infinite_reverse]"></div>
+        <div class="cloud-element w-[90vw] h-[70vh] bg-white bottom-[-20%] left-[10%] opacity-90 animate-[drift_20s_ease-in-out_infinite]"></div>
+        <div class="cloud-element w-[50vw] h-[50vh] bg-[#FFF8DC] top-[10%] right-[20%] opacity-40 animate-[drift_35s_ease-in-out_infinite]"></div>
     </div>
 
-    <header class="w-full text-center pt-10 pb-6 px-4 animate-fade-in">
-        <div class="inline-block border border-[#D4AF37] px-6 py-2 rounded-full mb-4">
-            <span class="text-[#D4AF37] text-xs tracking-[0.3em] uppercase">Club & Events</span>
+    <header class="w-full text-center pt-12 pb-8 px-4">
+        <div class="inline-block border border-[#FFD700] bg-white/50 backdrop-blur-sm px-6 py-2 rounded-full mb-6 shadow-sm">
+            <span class="text-[#B8860B] text-xs font-bold tracking-[0.3em] uppercase">Club & Events</span>
         </div>
-        <h1 class="text-6xl md:text-7xl font-bold text-gold-gradient tracking-tighter mb-2 floating">
+        <h1 class="text-6xl md:text-7xl font-bold text-logo-style tracking-tighter mb-3 relative inline-block">
             HEAVEN
+            <i class="fa-solid fa-sparkles absolute -top-4 -right-6 text-[#FFD700] text-xl animate-pulse"></i>
         </h1>
-        <p class="text-gray-400 text-sm tracking-widest uppercase mt-2">Tra Angeli e Tentazioni</p>
+        <p class="text-gray-500 text-sm tracking-widest uppercase mt-4 font-semibold">Tra Angeli e Tentazioni</p>
     </header>
 
-    <main class="w-full max-w-md px-5 space-y-8">
+    <main class="w-full max-w-md px-5 space-y-8 z-10">
 
         <section class="text-center">
-            <div class="p-[1px] rounded-2xl bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#D4AF37]">
-                <div class="bg-card bg-[#121212] rounded-2xl p-6 relative overflow-hidden group">
-                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#D4AF37] to-transparent opacity-50"></div>
-                    
-                    <h2 class="text-2xl text-white mb-2">Vuoi partecipare?</h2>
-                    <p class="text-gray-400 text-sm mb-6">Prenota il tuo tavolo o richiedi informazioni per il prossimo evento.</p>
-                    
-                    <a href="https://wa.me/393516223492?text=Ciao%20Heaven,%20vorrei%20avere%20maggiori%20informazioni%20sui%20prossimi%20eventi%20e%20prenotare%20un%20tavolo." 
-                       target="_blank"
-                       class="block w-full py-4 rounded-xl bg-gold text-black font-bold text-lg shadow-lg hover:scale-[1.02] transition-transform flex items-center justify-center gap-3">
-                        <i class="fa-brands fa-whatsapp text-xl"></i>
-                        Scrivici su WhatsApp
-                    </a>
-                    <p class="text-[10px] text-gray-500 mt-2 uppercase tracking-wide">Messaggio pre-impostato</p>
-                </div>
+            <div class="bg-white/80 backdrop-blur-md rounded-2xl p-6 relative overflow-hidden group border-gold-glow">
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#FFD700] to-transparent opacity-80"></div>
+                
+                <h2 class="text-3xl text-gray-800 mb-2 font-serif">Vuoi partecipare?</h2>
+                <p class="text-gray-500 text-sm mb-6">Prenota il tuo tavolo esclusivo o richiedi informazioni per il prossimo evento.</p>
+                
+                <a href="https://wa.me/393516223492?text=Ciao%20Heaven,%20vorrei%20avere%20maggiori%20informazioni%20sui%20prossimi%20eventi%20e%20prenotare%20un%20tavolo." 
+                   target="_blank"
+                   class="block w-full py-4 rounded-xl bg-gradient-to-r from-[#FFD700] to-[#F3E5AB] text-black font-bold text-lg shadow-[0_5px_15px_rgba(255,215,0,0.3)] hover:scale-[1.02] transition-transform flex items-center justify-center gap-3">
+                    <i class="fa-brands fa-whatsapp text-2xl"></i>
+                    Contatta lo Staff
+                </a>
             </div>
         </section>
 
         <section>
-            <div class="flex justify-between items-end mb-4 px-1">
-                <h2 class="text-xl text-[#D4AF37] font-serif italic">Galleria Eventi</h2>
-                <span class="text-xs text-gray-500">Scorri <i class="fa-solid fa-arrow-right ml-1"></i></span>
+            <div class="flex justify-between items-end mb-4 px-2">
+                <h2 class="text-xl text-[#B8860B] font-serif italic">Memory Lane</h2>
+                <span class="text-xs text-gray-500 font-medium">Scorri <i class="fa-solid fa-arrow-right ml-1"></i></span>
             </div>
 
-            <div class="flex overflow-x-auto no-scrollbar snap-x snap-mandatory pb-4" id="gallery-container">
+            <div class="flex overflow-x-auto no-scrollbar snap-x snap-mandatory pb-6" id="gallery-container">
                 
                 <div class="event-card group">
-                    <div class="relative h-64 w-full">
-                        <img src="Immagini.prova/1000463724.jpg" 
-                             alt="Evento Shed Club 5/01" 
-                             class="h-full w-full object-cover rounded-xl opacity-80 group-hover:opacity-100 transition-opacity duration-500">
-                        <div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black via-black/70 to-transparent p-4">
-                            <span class="text-[#D4AF37] text-xs font-bold uppercase tracking-wider">Next Event</span>
-                            <h3 class="text-white text-lg font-serif">Neza</h3>
+                    <div class="relative h-64 w-full bg-gray-100">
+                        <img src="Immagini.prova/1000463724.jpg" alt="Evento Shed Club" class="h-full w-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-500">
+                        <div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-white via-white/80 to-transparent p-4">
+                            <span class="text-[#B8860B] text-xs font-bold uppercase tracking-wider">Next Event</span>
+                            <h3 class="text-gray-900 text-xl font-serif">Neza</h3>
                         </div>
                     </div>
                 </div>
 
                 <div class="event-card group">
-                    <div class="relative h-64 w-full">
-                        <img src="Immagini.prova/1000463721.jpg" 
-                             alt="Evento Heaven DJ" 
-                             class="h-full w-full object-cover rounded-xl opacity-80 group-hover:opacity-100 transition-opacity duration-500">
-                        <div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black via-black/70 to-transparent p-4">
-                            <span class="text-[#D4AF37] text-xs font-bold uppercase tracking-wider">Guest Star</span>
-                            <h3 class="text-white text-lg font-serif">Dj Set Exclusive</h3>
+                    <div class="relative h-64 w-full bg-gray-100">
+                        <img src="Immagini.prova/1000463721.jpg" alt="Evento Heaven DJ" class="h-full w-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-500">
+                        <div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-white via-white/80 to-transparent p-4">
+                            <span class="text-[#B8860B] text-xs font-bold uppercase tracking-wider">Guest Star</span>
+                            <h3 class="text-gray-900 text-xl font-serif">Dj Set Exclusive</h3>
                         </div>
                     </div>
                 </div>
 
                 <div class="event-card group">
-                    <div class="relative h-64 w-full">
-                        <img src="Immagini.prova/1000463723.jpg" 
-                             alt="Evento Heaven Crowd" 
-                             class="h-full w-full object-cover rounded-xl opacity-80 group-hover:opacity-100 transition-opacity duration-500">
-                        <div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-black via-black/70 to-transparent p-4">
-                            <span class="text-[#D4AF37] text-xs font-bold uppercase tracking-wider">Atmosfera</span>
-                            <h3 class="text-white text-lg font-serif">Vibes Only</h3>
+                    <div class="relative h-64 w-full bg-gray-100">
+                        <img src="Immagini.prova/1000463723.jpg" alt="Evento Heaven Crowd" class="h-full w-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-500">
+                        <div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-white via-white/80 to-transparent p-4">
+                            <span class="text-[#B8860B] text-xs font-bold uppercase tracking-wider">Atmosfera</span>
+                            <h3 class="text-gray-900 text-xl font-serif">Vibes Only</h3>
                         </div>
                     </div>
                 </div>
@@ -191,45 +175,28 @@
             </div>
         </section>
 
-       <section class="mt-4">
-            <div class="border border-[#D4AF37]/30 bg-card rounded-2xl p-6 text-center relative overflow-hidden group shadow-[0_4px_15px_rgba(212,175,55,0.05)]">
-                <div class="absolute -top-10 -right-10 w-32 h-32 bg-[#D4AF37] opacity-5 rounded-full blur-xl group-hover:opacity-10 transition-opacity duration-300"></div>
-                
-                <i class="fa-solid fa-fire text-[#D4AF37] text-2xl mb-3"></i>
-                <h2 class="text-2xl text-white font-serif mb-2">Entra nel Team</h2>
-                <p class="text-gray-400 text-sm mb-6">Cerchiamo PR, ragazze immagine e gente con la giusta attitude. Vuoi vivere i party Heaven da protagonista?</p>
-                
-                <a href="https://wa.me/393802104080?text=Ciao%20Heaven,%20vorrei%20entrare%20a%20far%20parte%20dello%20staff!" 
-                   target="_blank"
-                   class="inline-flex w-full justify-center items-center py-3 rounded-xl border border-[#D4AF37] text-[#D4AF37] font-bold text-sm uppercase tracking-widest hover:bg-gold hover:text-black transition-all duration-300">
-                    <i class="fa-brands fa-whatsapp text-lg mr-2"></i>
-                    Fatti Avanti
+        <section class="mt-2">
+            <div class="bg-white rounded-2xl p-6 text-center relative overflow-hidden shadow-lg border border-[#FFD700]/40">
+                <div class="absolute -top-10 -right-10 w-32 h-32 bg-[#FFD700] opacity-10 rounded-full blur-xl"></div>
+                <i class="fa-solid fa-crown text-gold-elegant text-3xl mb-3"></i>
+                <h2 class="text-2xl text-gray-800 font-serif mb-2">Join the Family</h2>
+                <p class="text-gray-500 text-sm mb-6">Cerchiamo PR, promoter e gente con la giusta attitude. Vuoi vivere i party da protagonista?</p>
+                <a href="https://wa.me/393516223492?text=Ciao%20Heaven,%20vorrei%20entrare%20a%20far%20parte%20dello%20staff!" target="_blank" class="inline-flex w-full justify-center items-center py-3 rounded-xl border-2 border-[#FFD700] text-[#B8860B] font-bold text-sm uppercase tracking-widest hover:bg-[#FFD700] hover:text-black transition-all duration-300">
+                    <i class="fa-brands fa-whatsapp text-lg mr-2"></i> Fatti Avanti
                 </a>
             </div>
         </section>
 
         <section class="mt-4">
-
-            <div class="border border-[#333] bg-[#1a1a1a] rounded-xl p-5 flex items-center justify-between shadow-lg">
-
+            <div class="bg-white border border-gray-200 rounded-xl p-5 flex items-center justify-between shadow-md">
                 <div class="flex-1 pr-4">
-
-                    <h3 class="text-white font-serif text-lg">Rimani Aggiornato</h3>
-
-                    <p class="text-gray-400 text-xs mt-1">Entra nel canale ufficiale per scoprire tutti i vantaggi!.</p>
-
+                    <h3 class="text-gray-800 font-serif text-lg">Rimani Aggiornato</h3>
+                    <p class="text-gray-500 text-xs mt-1">Entra nel canale ufficiale per scoprire tutti i vantaggi.</p>
                 </div>
-
-                
-
-                <a href="https://whatsapp.com/channel/0029VbCByxA0AgW6ubm1ub0Q" target="_blank" class="bg-[#25D366] text-white w-12 h-12 rounded-full flex items-center justify-center shadow-[0_0_15px_rgba(37,211,102,0.4)] hover:scale-110 transition-transform">
-
+                <a href="https://whatsapp.com/channel/0029VbCByxA0AgW6ubm1ub0Q" target="_blank" class="bg-[#25D366] text-white w-12 h-12 rounded-full flex items-center justify-center shadow-[0_4px_10px_rgba(37,211,102,0.3)] hover:scale-110 transition-transform">
                     <i class="fa-brands fa-whatsapp text-2xl"></i>
-
                 </a>
-
             </div>
-
         </section>
 
     </main>
@@ -244,12 +211,15 @@
     </footer>
 
     <script>
-        // Semplice effetto di fade-in al caricamento
+        // Inizializzazione Logica: Fade-in al caricamento
         document.addEventListener('DOMContentLoaded', () => {
-            document.body.classList.add('opacity-100');
+            const body = document.getElementById('app-body');
+            setTimeout(() => {
+                body.classList.remove('opacity-0');
+                body.classList.add('opacity-100');
+            }, 100);
         });
     </script>
-<script data-goatcounter="https://ktcalex.goatcounter.com/count"
-        asincrono src="//gc.zgo.at/count.js"></script></body>
+    <script data-goatcounter="https://ktcalex.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></body>
 </html>
 
