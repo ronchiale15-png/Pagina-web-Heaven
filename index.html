@@ -12,19 +12,18 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 
     <style>
+        /* Mappatura delle Variabili Dinamiche */
         :root {
-            --gold-primary: #FFD700;
-            --gold-light: #FFF8DC;
-            --gold-dark: #B8860B;
-            /* NUOVO: L'azzurrino esatto estratto dal tuo logo */
-            --ice-blue-core: #A9D0F5; 
+            --theme-primary: #E84518; /* Arancione 'DIPINTO' */
+            --theme-light: #FCE1DA;   /* Arancione chiaro/crema */
+            --theme-dark: #A12B0B;    /* Rosso-arancio scuro per ombre */
             --cloud-white: #FFFFFF;
             --text-main: #1A1A1A; 
             --text-muted: #666666;
         }
 
         body {
-            background-color: var(--bg-body);
+            background-color: var(--cloud-white);
             color: var(--text-main);
             font-family: 'Montserrat', sans-serif;
             -webkit-font-smoothing: antialiased;
@@ -33,35 +32,36 @@
 
         h1, h2, h3 { font-family: 'Playfair Display', serif; }
 
-        /* AGGIORNATO: Il titolo ora usa l'azzurrino del logo con bordo oro */
         .text-logo-style {
-            color: var(--ice-blue-core);
+            color: var(--theme-primary);
             text-shadow: 
-                2px 2px 0 var(--gold-primary), 
-               -1px 1px 0 var(--gold-primary),
-               -1px -1px 0 var(--gold-primary),
-                1px -1px 0 var(--gold-primary),
-                0px 8px 15px rgba(255, 215, 0, 0.4);
+                2px 2px 0 var(--text-main), 
+               -1px 1px 0 var(--text-main),
+               -1px -1px 0 var(--text-main),
+                1px -1px 0 var(--text-main),
+                2px 4px 0 var(--text-main),
+                0px 8px 15px rgba(232, 69, 24, 0.4); 
         }
-        .text-gold-elegant {
-            background: linear-gradient(to right, var(--gold-dark), var(--gold-primary), var(--gold-dark));
+        
+        .text-theme-elegant {
+            background: linear-gradient(to right, var(--theme-dark), var(--theme-primary), var(--theme-dark));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-size: 200% auto;
             animation: shine 4s linear infinite;
         }
 
-        .border-gold-glow {
-            border: 1px solid var(--gold-primary);
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.2), inset 0 0 10px rgba(255, 215, 0, 0.1);
+        .border-theme-glow {
+            border: 1px solid var(--theme-primary);
+            box-shadow: 0 0 15px rgba(232, 69, 24, 0.2), inset 0 0 10px rgba(232, 69, 24, 0.1);
             animation: pulse-glow 3s infinite alternate;
         }
 
         @keyframes shine { to { background-position: 200% center; } }
 
         @keyframes pulse-glow {
-            0% { box-shadow: 0 0 10px rgba(255, 215, 0, 0.1), inset 0 0 5px rgba(255, 215, 0, 0.05); }
-            100% { box-shadow: 0 0 25px rgba(255, 215, 0, 0.4), inset 0 0 15px rgba(255, 215, 0, 0.2); }
+            0% { box-shadow: 0 0 10px rgba(232, 69, 24, 0.1), inset 0 0 5px rgba(232, 69, 24, 0.05); }
+            100% { box-shadow: 0 0 25px rgba(232, 69, 24, 0.4), inset 0 0 15px rgba(232, 69, 24, 0.2); }
         }
 
         @keyframes drift {
@@ -71,11 +71,10 @@
             100% { transform: translateX(0) translateY(0) scale(1); }
         }
 
-        /* AGGIORNATO: Nuvole meno sfocate per essere più visibili */
         .cloud-element {
             position: absolute;
             border-radius: 50%;
-            filter: blur(30px); /* Ridotto da 60 a 30 per farle risaltare */
+            filter: blur(30px);
             z-index: 0;
             pointer-events: none;
         }
@@ -92,43 +91,43 @@
             overflow: hidden;
             position: relative;
             background: white;
-            border: 1px solid rgba(255, 215, 0, 0.3);
+            border: 1px solid rgba(232, 69, 24, 0.3);
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
         }
     </style>
 </head>
 <body class="min-h-screen flex flex-col items-center justify-start pb-10 transition-opacity duration-700 opacity-0" id="app-body">
 
-   <div class="fixed top-0 left-0 w-full h-full overflow-hidden -z-20 pointer-events-none bg-gradient-to-b from-[#A9D0F5] via-[#DCEAFC] to-[#FFFFFF]">
+   <div class="fixed top-0 left-0 w-full h-full overflow-hidden -z-20 pointer-events-none bg-gradient-to-b from-[#FCE1DA] via-[#FDF5F2] to-[#FFFFFF]">
         <div class="cloud-element w-[80vw] h-[60vh] bg-[#FFFFFF] top-[-10%] left-[-20%] opacity-95 animate-[drift_25s_ease-in-out_infinite]"></div>
-        <div class="cloud-element w-[70vw] h-[50vh] bg-[#F4F9FF] top-[30%] right-[-10%] opacity-100 animate-[drift_30s_ease-in-out_infinite_reverse]"></div>
+        <div class="cloud-element w-[70vw] h-[50vh] bg-[#FCE1DA] top-[30%] right-[-10%] opacity-80 animate-[drift_30s_ease-in-out_infinite_reverse]"></div>
         <div class="cloud-element w-[90vw] h-[70vh] bg-[#FFFFFF] bottom-[-20%] left-[10%] opacity-95 animate-[drift_20s_ease-in-out_infinite]"></div>
-        <div class="cloud-element w-[50vw] h-[50vh] bg-[#FFF8DC] top-[10%] right-[20%] opacity-60 animate-[drift_35s_ease-in-out_infinite]"></div>
+        <div class="cloud-element w-[50vw] h-[50vh] bg-[#E84518] top-[10%] right-[20%] opacity-10 animate-[drift_35s_ease-in-out_infinite]"></div>
     </div>
 
     <header class="w-full text-center pt-12 pb-8 px-4">
-        <div class="inline-block border border-[#FFD700] bg-white/50 backdrop-blur-sm px-6 py-2 rounded-full mb-6 shadow-sm">
-            <span class="text-[#B8860B] text-xs font-bold tracking-[0.3em] uppercase">Club & Events</span>
+        <div class="inline-block border border-[#E84518] bg-white/50 backdrop-blur-sm px-6 py-2 rounded-full mb-6 shadow-sm">
+            <span class="text-[#A12B0B] text-xs font-bold tracking-[0.3em] uppercase">Club & Events</span>
         </div>
         <h1 class="text-6xl md:text-7xl font-bold text-logo-style tracking-tighter mb-3 relative inline-block">
             HEAVEN
-            <i class="fa-solid fa-sparkles absolute -top-4 -right-6 text-[#FFD700] text-xl animate-pulse"></i>
+            <i class="fa-solid fa-sparkles absolute -top-4 -right-6 text-[#E84518] text-xl animate-pulse"></i>
         </h1>
-        <p class="text-gray-500 text-sm tracking-widest uppercase mt-4 font-semibold">Tra Angeli e Tentazioni</p>
+        <p class="text-gray-600 text-sm tracking-widest uppercase mt-4 font-semibold">Tra Angeli e Tentazioni</p>
     </header>
 
     <main class="w-full max-w-md px-5 space-y-8 z-10">
 
         <section class="text-center">
-            <div class="bg-white/80 backdrop-blur-md rounded-2xl p-6 relative overflow-hidden group border-gold-glow">
-                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#FFD700] to-transparent opacity-80"></div>
+            <div class="bg-white/80 backdrop-blur-md rounded-2xl p-6 relative overflow-hidden group border-theme-glow">
+                <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-[#E84518] to-transparent opacity-80"></div>
                 
                 <h2 class="text-3xl text-gray-800 mb-2 font-serif">Vuoi partecipare?</h2>
                 <p class="text-gray-500 text-sm mb-6">Prenota il tuo tavolo esclusivo o richiedi informazioni per il prossimo evento.</p>
                 
                 <a href="https://wa.me/393516223492?text=Ciao%20Heaven,%20vorrei%20avere%20maggiori%20informazioni%20sui%20prossimi%20eventi%20e%20prenotare%20un%20tavolo." 
                    target="_blank"
-                   class="block w-full py-4 rounded-xl bg-gradient-to-r from-[#FFD700] to-[#F3E5AB] text-black font-bold text-lg shadow-[0_5px_15px_rgba(255,215,0,0.3)] hover:scale-[1.02] transition-transform flex items-center justify-center gap-3">
+                   class="block w-full py-4 rounded-xl bg-gradient-to-r from-[#E84518] to-[#F79373] text-white font-bold text-lg shadow-[0_5px_15px_rgba(232,69,24,0.4)] hover:scale-[1.02] transition-transform flex items-center justify-center gap-3">
                     <i class="fa-brands fa-whatsapp text-2xl"></i>
                     Contatta lo Staff
                 </a>
@@ -137,7 +136,7 @@
 
         <section>
             <div class="flex justify-between items-end mb-4 px-2">
-                <h2 class="text-xl text-[#B8860B] font-serif italic">Memory Lane</h2>
+                <h2 class="text-xl text-[#A12B0B] font-serif italic">Memory Lane</h2>
                 <span class="text-xs text-gray-500 font-medium">Scorri <i class="fa-solid fa-arrow-right ml-1"></i></span>
             </div>
 
@@ -147,7 +146,7 @@
                     <div class="relative h-64 w-full bg-gray-100">
                         <img src="Immagini.prova/1000463724.jpg" alt="Evento Shed Club" class="h-full w-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-500">
                         <div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-white via-white/80 to-transparent p-4">
-                            <span class="text-[#B8860B] text-xs font-bold uppercase tracking-wider">Next Event</span>
+                            <span class="text-[#E84518] text-xs font-bold uppercase tracking-wider">Next Event</span>
                             <h3 class="text-gray-900 text-xl font-serif">Neza</h3>
                         </div>
                     </div>
@@ -157,7 +156,7 @@
                     <div class="relative h-64 w-full bg-gray-100">
                         <img src="Immagini.prova/1000463721.jpg" alt="Evento Heaven DJ" class="h-full w-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-500">
                         <div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-white via-white/80 to-transparent p-4">
-                            <span class="text-[#B8860B] text-xs font-bold uppercase tracking-wider">Guest Star</span>
+                            <span class="text-[#E84518] text-xs font-bold uppercase tracking-wider">Guest Star</span>
                             <h3 class="text-gray-900 text-xl font-serif">Dj Set Exclusive</h3>
                         </div>
                     </div>
@@ -167,7 +166,7 @@
                     <div class="relative h-64 w-full bg-gray-100">
                         <img src="Immagini.prova/1000463723.jpg" alt="Evento Heaven Crowd" class="h-full w-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-500">
                         <div class="absolute bottom-0 left-0 w-full bg-gradient-to-t from-white via-white/80 to-transparent p-4">
-                            <span class="text-[#B8860B] text-xs font-bold uppercase tracking-wider">Atmosfera</span>
+                            <span class="text-[#E84518] text-xs font-bold uppercase tracking-wider">Atmosfera</span>
                             <h3 class="text-gray-900 text-xl font-serif">Vibes Only</h3>
                         </div>
                     </div>
@@ -177,12 +176,12 @@
         </section>
 
         <section class="mt-2">
-            <div class="bg-white rounded-2xl p-6 text-center relative overflow-hidden shadow-lg border border-[#FFD700]/40">
-                <div class="absolute -top-10 -right-10 w-32 h-32 bg-[#FFD700] opacity-10 rounded-full blur-xl"></div>
-                <i class="fa-solid fa-crown text-gold-elegant text-3xl mb-3"></i>
+            <div class="bg-white rounded-2xl p-6 text-center relative overflow-hidden shadow-lg border border-[#E84518]/40">
+                <div class="absolute -top-10 -right-10 w-32 h-32 bg-[#E84518] opacity-10 rounded-full blur-xl"></div>
+                <i class="fa-solid fa-crown text-theme-elegant text-3xl mb-3"></i>
                 <h2 class="text-2xl text-gray-800 font-serif mb-2">Entra nel Team</h2>
                 <p class="text-gray-500 text-sm mb-6">Cerchiamo PR, ragazze immagine e gente con la giusta attitude. Vuoi vivere i party da protagonista?</p>
-                <a href="https://wa.me/393516223492?text=Ciao%20Heaven,%20vorrei%20entrare%20a%20far%20parte%20dello%20staff!" target="_blank" class="inline-flex w-full justify-center items-center py-3 rounded-xl border-2 border-[#FFD700] text-[#B8860B] font-bold text-sm uppercase tracking-widest hover:bg-[#FFD700] hover:text-black transition-all duration-300">
+                <a href="https://wa.me/393516223492?text=Ciao%20Heaven,%20vorrei%20entrare%20a%20far%20parte%20dello%20staff!" target="_blank" class="inline-flex w-full justify-center items-center py-3 rounded-xl border-2 border-[#E84518] text-[#A12B0B] font-bold text-sm uppercase tracking-widest hover:bg-[#E84518] hover:text-white transition-all duration-300">
                     <i class="fa-brands fa-whatsapp text-lg mr-2"></i> Fatti Avanti
                 </a>
             </div>
@@ -204,9 +203,9 @@
 
     <footer class="mt-12 text-center text-gray-600 text-xs px-10 pb-8">
         <div class="flex justify-center gap-6 mb-4">
-            <a href="https://www.instagram.com/lista.heaven/" class="text-gray-400 hover:text-[#D4AF37] transition-colors"><i class="fa-brands fa-instagram text-2xl"></i></a>
-            <a href="#" class="text-gray-400 hover:text-[#D4AF37] transition-colors"><i class="fa-brands fa-tiktok text-2xl"></i></a>
-            <a href="#" class="text-gray-400 hover:text-[#D4AF37] transition-colors"><i class="fa-solid fa-location-dot text-2xl"></i></a>
+            <a href="https://www.instagram.com/lista.heaven/" class="text-gray-400 hover:text-[#E84518] transition-colors"><i class="fa-brands fa-instagram text-2xl"></i></a>
+            <a href="#" class="text-gray-400 hover:text-[#E84518] transition-colors"><i class="fa-brands fa-tiktok text-2xl"></i></a>
+            <a href="#" class="text-gray-400 hover:text-[#E84518] transition-colors"><i class="fa-solid fa-location-dot text-2xl"></i></a>
         </div>
         <p>&copy; 2026 HEAVEN EVENTS.</p>
     </footer>
@@ -221,6 +220,6 @@
             }, 100);
         });
     </script>
-    <script data-goatcounter="https://ktcalex.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script></body>
+    <script data-goatcounter="https://ktcalex.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+</body>
 </html>
-
